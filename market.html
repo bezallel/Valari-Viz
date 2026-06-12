@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="esg.css">
+    <title>Isolde</title>
+</head>
+<body>
+<div class="menu-toggle-bar"></div> 
+<button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+     <nav class="side-nav">
+  <ul>
+    <li><a href="hero.html">Home</a></li>
+    <li>
+      <a href="market.html">HTML/CSS</a>
+      <ul class="sub-nav">
+        <li><a href="market.html">Markets In the Stars</a></li>
+        <li><a href="superstore.html">Superstore</a></li>
+      </ul>
+    </li>
+    <li><a href="esg.html">Figma</a></li>
+    <li><a href="tableau.html">Tableau</a></li>
+    <li><a href="ppt.html">Powerpoint</a></li>
+  </ul>
+</nav>
+
+
+<main>
+  <!-- Project Overview Section -->
+  <section id="overview" class="project-overview">
+    <h2>Lagos Markets in the Stars</h2>
+
+    <ul class="project-meta">
+  <li><strong>Category:</strong> Data visualisation / Interactive storytelling</li>
+  <li><strong>Technical Skills:</strong> HTML, CSS, JavaScript, DOM manipulation, CSS animation</li>
+</ul>
+
+<div class="project-description">
+  <p><strong>Motivation:</strong>
+  Markets are central to Nigerian life, shaping communities, local economies, and daily movement. Lagos has dozens, each with its own identity, history, and role. Instead of a standard map, I wanted a more atmospheric way to represent them. That idea became Lagos Markets in the Stars.</p>
+
+  <p><strong>Overview:</strong>
+  All 67 Lagos markets are shown as an interactive night sky. Each star represents a market, with size and brightness reflecting its importance. Major hubs appear brighter and larger, while smaller community markets appear as subtle points of light, forming a living constellation of the city.</p>
+
+  <p><strong>How It Works:</strong>
+  Built with HTML, CSS, and JavaScript without frameworks. Stars are generated across the screen, each storing market name, location, and description. Hover reveals the name, click opens a detail panel, and stars can be dragged or reshuffled. Background stars animate independently to keep the sky dynamic.</p>
+
+  <p><strong>Impact:</strong>
+  The project turns civic data into something visual and engaging. It helps people explore Lagos markets intuitively and understand their roles, locations, and significance in a more immersive way.</p>
+</div>
+
+    <video autoplay muted loop class="app-video">
+      <source src="./Videos/aamarkets.mp4" type="video/mp4">
+    </video>
+
+    <a href="https://lagos-markets.onrender.com/" target="_blank" class="visit-btn">
+      View live demo
+    </a>
+  </section>
+
+  <div class="next-project hidden">
+        <a href="./superstore.html">Go to Superstore →</a>
+  </div>
+
+  </div>
+</div>
+</section>
+</main>
+
+<footer class="footer">
+    <p>&copy; All Rights Reserved 2026 | Designed by Peace Valari</p>
+</footer>
+
+    <script src="tableau1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+</body>
+</html>

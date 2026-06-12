@@ -1,0 +1,606 @@
+/* Reset-ish */
+* { box-sizing: border-box; }
+html,body { 
+    height: 100%; 
+    margin: 0; 
+    font-family: "Cinzel", serif; 
+    color: #111; 
+    background: #0a0a0a; /* same as your hero background */
+  color: #fff;
+}
+
+/* Layout */
+.container { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 2rem; 
+}
+
+.navbar {
+  position: absolute;
+  top: 20px;
+  right: 70px;
+  z-index: 1000;
+}
+
+
+
+/* Top-level list only */
+.navbar > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 2rem;
+}
+
+/* Top-level items only */
+.navbar > ul > li {
+  position: relative;
+}
+
+/* Submenu: hidden by default */
+.navbar .dropdown-menu {
+  display: none;               /* now this wins */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(0,0,0,0.9);
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  min-width: 160px;
+  border-radius: 6px;
+}
+
+/* Show submenu on hover or keyboard focus */
+.navbar .dropdown:hover > .dropdown-menu,
+.navbar .dropdown:focus-within > .dropdown-menu {
+  display: block;
+}
+
+
+/* .navbar a {
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: opacity 0.2s ease;
+} */
+
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;          /* ensures uniform height */
+  vertical-align: middle;  /* aligns baseline */
+  display: inline-block;   /* lets vertical-align work reliably */
+}
+
+
+.navbar a:hover {
+  opacity: 0.7;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(0, 0, 0, 0.9);
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  display: none;
+  min-width: 160px;
+  border-radius: 6px;
+}
+
+.dropdown-menu li {
+  padding: 0;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 0.5rem 1rem;
+  margin-left: -2rem !important;
+  color: white;
+  font-size: 0.75rem;
+}
+
+.dropdown-menu a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+
+
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: #0a0a0a;
+  /* transition: color 0.3s ease; */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.hero.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.hero-logo {
+  position: absolute;
+  top: 1px;   /* adjust vertically */
+  left: -7px;  /* adjust horizontally */
+  z-index: 1100; /* above hero-line */
+}
+
+.hero-logo img {
+  height: 68px;   /* control size */
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+
+
+
+
+
+
+
+.hero-stats {
+  display: flex;
+  gap: 3rem; /* spacing between the two stacks */
+  margin-bottom: 1.5rem; /* space below stats before hero-name */
+  margin-top: -8%;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center number and label */
+  color: #f2f2f2;
+}
+
+.stat-number {
+  font-size: 2.5rem; /* larger for emphasis */
+  font-weight: 700;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0.85;
+  margin-top: 0.25rem;
+  text-align: center;
+}
+
+
+
+
+.hero-line {
+  position: absolute;
+  top: 16%;
+  left: 26px;   /* distance from right edge */
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none; /* makes it non-clickable */
+}
+
+.hero-line .line {
+  flex: 1;
+  width: 1px;           /* thin line */
+  background-color: white;
+}
+
+.hero-line span {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg); /* flip text to read bottom-to-top */
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  margin: 6px 0;
+  letter-spacing: 2px;
+}
+
+
+
+
+/* Inner container */
+.hero-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+   transition: color 0.3s ease;
+}
+
+/* LEFT SIDE */
+.hero-left {
+  flex: 1;
+  margin-left: 4%;
+}
+
+.hero-name {
+  font-size: clamp(38px, 10vw, 86px);
+  margin: 0 0 .7rem 0;
+  letter-spacing: -0.02em;
+  color: #7e7b7b;
+  position: relative;
+  display: inline-block;
+  background: rgb(242, 242, 242);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* animation: shine 9s linear infinite; */
+}
+
+/* @keyframes shine {
+  0% { background-position: 200% center; }
+  10% { background-position: 0% center; }
+  100% { background-position: 0% center; }
+} */
+
+
+
+
+/* .hero-tagline { 
+    margin: 0 0 1.25rem 0; 
+    color: #787777; 
+    font-size: 1.02rem; 
+    max-width: 46ch; 
+    line-height: 1.45; 
+} */
+
+
+.hero-tagline { 
+  margin: 0 0 1.5rem 0; 
+  color: #9e9e9e; 
+  font-size: 1.15rem; 
+  font-weight: 400;
+  max-width: 46ch; 
+  line-height: 1.6; 
+  letter-spacing: -0.01em;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.hero-tagline:hover {
+  opacity: 1; /* slight reveal interaction */
+}
+
+.hero-ctas {
+  display: flex;
+  gap: .75rem;
+  margin-top: 1rem;
+}
+
+
+.btn.neumorphic {
+  position: relative;
+  padding: 0.85rem 1.75rem;
+  border-radius: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1.05rem;
+  cursor: pointer;
+  border: none;
+  background: #0d0c0c; /* dark surface */
+  color: #f2f2f2;
+  letter-spacing: 0.5px;
+  transition: all 0.25s ease;
+
+  /* More defined neumorphism */
+  box-shadow:
+   inset 3px 3px 6px rgba(0, 0, 0, 0.75),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.07);
+}
+
+.btn.neumorphic:active {
+  transform: translateY(2px); /* push the button down */
+  box-shadow:
+    inset 2px 2px 5px rgba(0, 0, 0, 0.75),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.07); /* slightly smaller inset to feel pressed */
+}
+
+
+
+
+
+
+
+
+
+/* 
+box-shadow:
+    5px 5px 10px rgba(0, 0, 0, 0.65),   
+    -5px -5px 10px rgba(255, 255, 255, 0.08); 
+}
+
+.btn.neumorphic:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    6px 6px 12px rgba(0, 0, 0, 0.7),
+    -6px -6px 12px rgba(255, 255, 255, 0.1);
+}
+
+.btn.neumorphic:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 3px 3px 6px rgba(0, 0, 0, 0.75),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.07);
+}
+ */
+
+
+
+
+
+
+
+
+
+/* small note */
+.hero-note { 
+    margin: 0; 
+    color: #666; 
+    font-size: .9rem; 
+}
+
+
+
+/* .hero-right {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.hero-gif {
+  max-width: 700px;
+  margin-left: 12%;
+  width: 100%;
+  height: 700px;
+  object-fit: contain;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+
+
+
+/* 
+.hero-gif {
+  width: 600px;           
+  max-width: 100%;          
+  height: 600px;             
+  object-fit: contain;
+  opacity: 0;
+  transform: translateX(80px);
+  animation: slideIn 1s ease-out forwards, float 3s ease-in-out 1s infinite;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+} */
+
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: inherit;
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 0.875rem; /* Adjust font size for readability */
+}
+
+
+
+
+
+/* Add to your CSS */
+.page-transition {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+.page-transition.fade-out {
+  opacity: 0;
+}
+
+
+
+
+@media (max-width: 767px) {
+  .hero-inner {
+    display: grid;                   /* ensure grid layout */
+    grid-template-columns: 1fr;      /* single column */
+    justify-items: center;           /* horizontally center children */
+    text-align: center; 
+    gap: 1.5rem;                     /* optional spacing between hero-left and hero-right */
+  }
+
+  .hero-left {
+    margin-left: 8%;                  /* remove negative margin */
+  }
+
+  .hero-right {
+    order: -1; 
+    margin-bottom: 1.2rem; 
+  }
+
+  .hero-name {
+    font-size: clamp(38px, 10vw, 92px);
+  }
+
+  .hero-ctas { 
+    justify-content: center; 
+  }
+
+  .hero-gif {
+    display: none;
+  }
+
+  .hero-stats {
+margin-left: 12%;
+}
+
+  .stat-number {
+  font-size: 2.5rem; 
+}
+
+.stat-label {
+  font-size: 0.75rem;
+}
+
+.hero-name {
+  font-size: clamp(38px, 10vw, 86px);
+}
+
+.hero-tagline { 
+  font-size: 1rem; 
+}
+
+
+}
+
+
+
+
+
+
+
+
+/* .hero-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+   transition: color 0.3s ease;
+} */
+
+/* LEFT SIDE */
+
+/* .hero-tagline { 
+  margin: 0 0 1.5rem 0; 
+  color: #9e9e9e; 
+  font-size: 1.15rem; 
+  font-weight: 400;
+  max-width: 46ch; 
+  line-height: 1.6; 
+  letter-spacing: -0.01em;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+} */
+
+/* 
+.btn.neumorphic {
+  position: relative;
+  padding: 0.85rem 1.75rem;
+  border-radius: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1.05rem;
+  cursor: pointer;
+  border: none;
+  background: #0d0c0c; 
+  color: #f2f2f2;
+  letter-spacing: 0.5px;
+  transition: all 0.25s ease;
+
+
+  box-shadow:
+    5px 5px 10px rgba(0, 0, 0, 0.65),   
+    -5px -5px 10px rgba(255, 255, 255, 0.08); 
+}
+
+.btn.neumorphic:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    6px 6px 12px rgba(0, 0, 0, 0.7),
+    -6px -6px 12px rgba(255, 255, 255, 0.1);
+}
+
+.btn.neumorphic:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 3px 3px 6px rgba(0, 0, 0, 0.75),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.07);
+} */
+
+
+
+
+
+
+
+
+/* .hero-note { 
+    margin: 0; 
+    color: #666; 
+    font-size: .9rem; 
+}
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+

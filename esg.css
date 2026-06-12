@@ -1,0 +1,503 @@
+/* ─────────────────────────────────────────
+   ROOT & RESET
+───────────────────────────────────────── */
+:root {
+  --sidebar-width: 200px;
+  --accent: #ff4081;
+  --bg: rgb(1, 0, 8);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Cinzel', serif;
+  background-color: var(--bg);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 3s ease;
+}
+
+body.fade-in {
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────────
+   SIDE NAV
+───────────────────────────────────────── */
+.side-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: left 0.25s ease-in-out;
+}
+
+.side-nav ul {
+  list-style: none;
+}
+
+.side-nav li {
+  margin: 1rem 0;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.3s;
+}
+
+.side-nav li a {
+  color: #888;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.side-nav li a:hover,
+.side-nav li:hover {
+  color: var(--accent);
+}
+
+.side-nav > ul > li.active > a {
+  pointer-events: none;
+  cursor: default;
+  color: var(--accent);
+}
+
+/* .side-nav li.active {
+  color: var(--accent);
+  pointer-events: none;
+} */
+
+
+.side-nav li a.active-parent {
+  color: var(--accent);
+}
+
+.side-nav .sub-nav li a.active {
+  color: #ff6f61;
+  font-weight: 600;
+}
+
+
+
+/* sub-nav */
+.side-nav ul li ul.sub-nav {
+  list-style: none;
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.side-nav ul li ul.sub-nav li {
+  margin: 0.5rem 0;
+}
+
+.side-nav ul li ul.sub-nav li a {
+  font-size: 0.9rem;
+  color: #bbb;
+  text-decoration: none;
+  transition: color 0.3s, font-weight 0.3s;
+}
+
+.side-nav ul li ul.sub-nav li a.active {
+  color: #ff6f61;
+  font-weight: 600;
+}
+
+/* ─────────────────────────────────────────
+   MOBILE TOGGLE BAR
+───────────────────────────────────────── */
+.menu-toggle-bar {
+  display: none;
+}
+
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: #111;
+  color: #fff;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 1100;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+}
+
+/* ─────────────────────────────────────────
+   TYPOGRAPHY
+───────────────────────────────────────── */
+h1, h2 {
+  font-family: 'Cinzel', serif;
+  color: #fff;
+}
+
+/* ─────────────────────────────────────────
+   PROJECT OVERVIEW
+───────────────────────────────────────── */
+.project-overview {
+  margin-left: calc(var(--sidebar-width) + 20px);
+  margin-right: auto;   /* ADD THIS */
+  padding: 2rem;
+  max-width: 900px;
+}
+
+.project-overview h2 {
+  margin-top: 10px;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.project-overview p {
+  line-height: 1.7;
+  margin-bottom: 1.4rem;
+  font-size: clamp(0.82rem, 1.4vw, 1rem);
+  color: #fff;
+}
+
+.project-meta {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+
+.project-meta li {
+  margin-bottom: 0.5rem;
+  font-size: clamp(0.8rem, 1.3vw, 0.95rem);
+  color: #fff;
+}
+
+/* ─────────────────────────────────────────
+   SLIDER CONTAINER
+───────────────────────────────────────── */
+.container {
+  margin-left: var(--sidebar-width);
+  width: calc(100% - var(--sidebar-width));
+  padding: 20px 32px 100px;  /* bottom pad clears footer + controls */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;       /* centers slider and controls horizontally */
+}
+
+.case-title {
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+/* ─────────────────────────────────────────
+   SLIDER  (stacked-card effect)
+───────────────────────────────────────── */
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 960px;          /* cap width so it doesn't over-stretch */
+  aspect-ratio: 16 / 9;
+  max-height: 75vh;
+  perspective: 1000px;
+}
+
+/* every box sits on top of each other */
+.box1, .box2, .box3, .box4,
+.box5, .box6, .box7, .box8 {
+  position: absolute;
+  inset: 0;                /* fill the slider exactly */
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform 0.9s cubic-bezier(0.68, -0.45, 0.32, 1.55),
+              opacity  0.6s ease;
+}
+
+/* media inside boxes always fills the box */
+.box1 img,  .box2 img,  .box3 img,  .box4 img,
+.box5 img,  .box6 img,  .box7 img,  .box8 img,
+.box1 video,.box2 video,.box3 video,.box4 video,
+.box5 video,.box6 video,.box7 video,.box8 video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ─────────────────────────────────────────
+   SLIDER CONTROLS
+───────────────────────────────────────── */
+.slider-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  width: 100%;
+  max-width: 960px;          /* matches slider width */
+  padding: 0 4px;
+}
+
+.prev, .next {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  cursor: pointer;
+  padding: 6px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.prev:hover, .next:hover {
+  color: var(--accent);
+}
+
+
+
+
+
+
+
+/* Video styling */
+.app-video {
+  width: min(90%, 860px);
+  border-radius: 10px;
+  margin: 3rem 0 3rem calc(var(--sidebar-width) + 20px);
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .app-video {
+    margin: 2rem auto;
+    margin-bottom: 1.5rem;
+    width: 95%;
+  }
+
+    .visit-btn {
+    margin-bottom: 4rem;
+  }
+}
+
+
+
+.scroll-item .appy-video {
+    width: 100%;
+    border-radius: 10px;
+    margin: 2rem 0;
+    display: block;
+    object-fit: contain;
+  
+}
+
+/* Visit button */
+.visit-btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: #ff4081;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+  margin-bottom: 5rem;  /* clears the fixed footer */
+}
+
+.visit-btn:hover {
+  background: #ff1f70;
+}
+
+.visit-btn + .demo-note {
+  display: inline-block;
+  margin-left: 0.1rem;
+  font-size: 0.9rem;
+  color: #ff0000;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+
+
+
+
+
+
+/* ─────────────────────────────────────────
+   NEXT PROJECT BUTTON
+───────────────────────────────────────── */
+.next-project {
+  position: fixed;
+  bottom: 3.8rem;            /* footer is ~40px tall; this clears it comfortably */
+  right: 2rem;
+  z-index: 500;              /* above content, below nav */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.next-project.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.next-project a {
+  background: #ff1f70;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.next-project a:hover {
+  background: #fff;
+  color: #ff1f70;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,0.9);
+  color: #fff;
+  text-align: center;
+  padding: 10px 20px;
+  box-shadow: 0 -1px 5px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.footer p {
+  margin: 0;
+  font-size: clamp(0.65rem, 1.5vw, 0.875rem);
+}
+
+#footer-sentinel {
+  height: 1px;
+  width: 100%;
+}
+
+
+
+/* ─────────────────────────────────────────
+   MOBILE  (≤ 767px)
+───────────────────────────────────────── */
+@media (max-width: 767px) {
+  :root { --sidebar-width: 0px; }
+
+  /* black bar behind toggle icon */
+  .menu-toggle-bar {
+    display: block;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 56px;
+    background: #000;
+    z-index: 998;
+  }
+
+  .menu-toggle {
+    display: block;
+    top: 10px;
+    left: 12px;
+    z-index: 1100;
+  }
+
+  /* nav slides in from left */
+  .side-nav {
+    left: -110%;
+    width: 65%;
+    max-width: 280px;
+    padding-top: 64px;
+    z-index: 1050;
+  }
+  .side-nav.open { left: 0; }
+
+  body {
+    padding-top: 56px;   /* clear the toggle bar */
+  }
+
+  .project-overview {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 1.2rem 1rem;
+    max-width: 100%;
+  }
+
+  .container {
+    margin-left: 0;
+    width: 100%;
+    padding: 12px 10px 90px;
+    align-items: center;
+  }
+
+  /* slider fills the screen width */
+  .slider {
+    aspect-ratio: 16 / 9;
+    max-height: 55vw;   /* keeps it from being too tall on narrow screens */
+  }
+
+  .next-project {
+    bottom: 3.8rem;
+    right: 0.8rem;
+  }
+}
+
+/* ─────────────────────────────────────────
+   TABLET PORTRAIT  (768px – 1023px)
+───────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .project-overview {
+    margin-left: calc(var(--sidebar-width) + 12px);
+    padding: 1.5rem;
+  }
+
+  .container {
+    padding: 16px 24px 80px;
+  }
+
+  .slider {
+    max-height: 60vh;
+  }
+}
+
+/* ─────────────────────────────────────────
+   SMALL LANDSCAPE PHONES  (max-height 500px)
+───────────────────────────────────────── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .slider {
+    max-height: 72vh;
+  }
+
+  .project-overview {
+    padding: 0.8rem 1rem;
+  }
+
+  .project-overview p {
+    margin-bottom: 0.7rem;
+    font-size: 0.8rem;
+  }
+}
